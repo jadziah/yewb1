@@ -94,13 +94,13 @@ a:link, a:visited{
 }
 
 a:hover{
-  color:white;
+   color:red;
   transition: 0.3s;
   text-decoration: none;
 }
 
 a:active{
-  color:var(--text-color);
+    color:red;
   text-decoration: none;
 }
 
