@@ -2,8 +2,8 @@ console.log("This is loaded in app.js");
 
 //Load all functions to DOM, and make sure it works
 document.addEventListener("DOMContentLoaded", (event) => {
-    loadComponent("header", "/components/header.html");
-    loadComponent("footer", "/components/footer.html");
+    loadComponent("header", "./components/header.html");
+    loadComponent("footer", "./components/footer.html");
     loadComponent(setupThemeToggle());
     console.log("DOM fully loaded and parsed");
   });
