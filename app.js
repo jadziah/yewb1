@@ -1,19 +1,164 @@
 console.log("This is loaded in app.js");
 
 //Load all functions to DOM, and make sure it works
-document.addEventListener("DOMContentLoaded", (event) => {
+document.addEventListener("DOMContentLoaded", async (event) => {
     loadComponent("header", "./components/header.html");
     loadComponent("footer", "./components/footer.html");
-    loadComponent(setupThemeToggle());
-    console.log("DOM fully loaded and parsed");
+  
+  
+    //setupThemeToggle();
+    console.log("DOM fully loaded and components loaded.");
   });
 
-function setupThemeToggle() {
-const toggleButton = document.getElementById('theme-toggle');
-toggleButton.addEventListener('click', () => {
-  document.body.classList.toggle('dark-mode');
+
+   // Header mobile burger working right now
+   function myFunction2() {
+    document.querySelector('.nav-icon-burger').addEventListener('click', () => {
+        document.querySelector('.nav-links').classList.toggle('active');
+    });
+    
+      }
+/*
+  let slideIndex = 1;
+  showSlides(slideIndex);
+  
+  // Next/previous controls
+  function plusSlides(n) {
+    showSlides(slideIndex += n);
+  }
+  
+  // Thumbnail image controls
+  function currentSlide(n) {
+    showSlides(slideIndex = n);
+  }
+  
+  function showSlides(n) {
+    let i;
+    let slides = document.getElementsByClassName("mySlides");
+    let dots = document.getElementsByClassName("dot");
+    if (n > slides.length) {slideIndex = 1}
+    if (n < 1) {slideIndex = slides.length}
+    for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+    }
+    for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex-1].style.display = "block";
+    dots[slideIndex-1].className += " active";
+  }
+*/
+
+document.addEventListener("DOMContentLoaded", () => {
+  let slideIndex = 1;
+  const slides = document.getElementsByClassName("mySlides");
+  const dots = document.getElementsByClassName("dot");
+
+  const showSlides = (n) => {
+    if (n > slides.length) slideIndex = 1;
+    if (n < 1) slideIndex = slides.length;
+
+    // Hide all slides
+    for (let i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+    }
+
+    // Remove 'active' from all dots
+    for (let i = 0; i < dots.length; i++) {
+      dots[i].classList.remove("active");
+    }
+
+    // Show current slide and activate dot
+    slides[slideIndex - 1].style.display = "block";
+    dots[slideIndex - 1].classList.add("active");
+  };
+
+  const plusSlides = (n) => {
+    showSlides(slideIndex += n);
+  };
+
+  const currentSlide = (n) => {
+    showSlides(slideIndex = n);
+  };
+
+  // Initial call
+  showSlides(slideIndex);
+
+  // Event listeners (example setup)
+  document.querySelector(".prev").addEventListener("click", () => plusSlides(-1));
+  document.querySelector(".next").addEventListener("click", () => plusSlides(1));
+  
+  Array.from(dots).forEach((dot, index) => {
+    dot.addEventListener("click", () => currentSlide(index + 1));
+  });
 });
+
+
+
+  /*
+  function setupThemeToggle() {
+    const toggleButton = document.getElementById('theme-toggle');
+    const headerLogo = document.getElementById('header-logo'); // Header logo
+    const footerLogo = document.getElementById('footer-logo'); // Footer logo
+  
+    toggleButton.forEach(button => {
+      button.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+  
+       // Determine new icon and logo sources
+       const isDarkMode = document.body.classList.contains('dark-mode');
+       const newLogo = isDarkMode ? 'assets/images/logo_dark.svg' : 'assets/images/logo_light.svg';
+ 
+       // Update all icons
+    
+ 
+       // Update logos
+       headerLogo.src = newLogo;
+       footerLogo.src = newLogo;
+     });
+   });
+ }
+*/
+/*  
+function setupThemeToggle() {
+  const toggleButton = document.getElementById('theme-toggle');
+  const logoHeader = document.getElementById('logo-header');
+  const logoFooter = document.getElementById('logo-footer');
+
+  toggleButton.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+
+    // Check if dark mode is active
+  
+  });
+} ////////////////////////////////TO do explain whz it switchers
+*/
+function myFunctionDark() {
+  var element = document.body;
+  element.classList.toggle("dark-mode");
+  const logoHeader = document.getElementById('logo-header');
+  const logoFooter = document.getElementById('logo-footer');
+
+  if (document.body.classList.contains('dark-mode')) {
+    logoHeader.src = './assets/images/logo_dark.svg'; // Dark mode logo
+    logoFooter.src = './assets/images/logo_dark.svg'; // Dark mode logo
+  } else {
+    logoHeader.src = './assets/images/logo_light.svg'; // Light mode logo
+      logoFooter.src = './assets/images/logo_light.svg'; // Light mode logo
+  }
 }
+  // Call the function to set up the toggle
+ // setupThemeToggle();
+ /*
+function setupThemeToggle() {
+  const toggleButton = document.getElementById('theme-toggle');
+  toggleButton.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    const image = document.getElementById('my-image');
+    image.src = '/assets/images/logo_dark.svg';
+  });
+  }
+  */
 
 
 
@@ -27,21 +172,8 @@ function myFunction() {
     }
   }
 
- // Header mobile burger working right now
-  function myFunction2() {
-document.querySelector('.nav-icon-burger').addEventListener('click', () => {
-    document.querySelector('.nav-links').classList.toggle('active');
-});
 
-  }
   
-  function darkify(inputString) {
-    const color = d3.hsl(d3.color(inputString));
-    const luminanceBefore = color.l;
-    color.l = 1 - luminanceBefore;
-    return color.formatRgb();
-  }
-
 // <head> element
 (function updateHead() {
     // Set or change the document title
@@ -103,7 +235,18 @@ document.querySelector('.nav-icon-burger').addEventListener('click', () => {
 
   })();
 
- 
+  function setLogo() {
+    const logoElement = document.getElementById('logo2');
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      logoElement.src = "/assets/images/logo_light.svg";
+    } else {
+      logoElement.src = "/assets/images/logo_dark.svg";
+    }
+  }
+
+    // Call the function on page load and on theme changes
+  setLogo();
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', setLogo);
 
 function loadComponent(id, file) {
     fetch(file)
